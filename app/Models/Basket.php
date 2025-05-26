@@ -20,5 +20,10 @@ class Basket extends Model
     {
         return $this->belongsToMany(Product::class, 'basket_items');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
 

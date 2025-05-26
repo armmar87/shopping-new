@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Basket;
-use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class BasketService
@@ -15,6 +15,18 @@ class BasketService
         }
 
         return Basket::firstOrCreate(['guest_token' => $guestToken]);
+    }
+
+    public function pinBasketToUser(User $user, string $guestToken): void
+    {
+        $guestBasket = Basket::where('guest_token', $guestToken)->first();
+
+        if ($guestBasket && !$guestBasket->user_id) {
+            $guestBasket->update([
+                'user_id' => $user->id,
+                'guest_token' => null,
+            ]);
+        }
     }
 
     public function addProduct(Basket $basket, int $productId): void

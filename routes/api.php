@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BasketController;
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\ProductController;
 
 
@@ -25,4 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Product
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);
+
+    //Checkout
+    Route::post('/checkout', CheckoutController::class);
 });

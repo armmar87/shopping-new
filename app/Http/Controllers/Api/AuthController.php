@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignInRequest;
+use App\Services\BasketService;
 use Illuminate\Http\Request;
 use App\Models\User;
 class AuthController extends Controller
 {
+    public function __construct(
+        protected BasketService $basketService
+    ) {}
     public function login(SignInRequest $request)
     {
         $params = $request->validated();
@@ -16,6 +20,12 @@ class AuthController extends Controller
 
         if (! $user || ! \Hash::check($params['password'], $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $guestToken = $request->header('X-Guest-Token');
+
+        if ($guestToken) {
+            $this->basketService->pinBasketToUser($user, $guestToken);
         }
 
         $token = $user->createToken('api-token')->plainTextToken;
