@@ -28,6 +28,7 @@ class OrderService
             }
 
             $basket->items()->delete(); // Clear basket after order
+            $basket->delete();
 
             return $order;
         });
