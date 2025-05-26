@@ -5,12 +5,13 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BasketController;
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\OrderController;
 
 
 //Auth
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-//Basket
+// Basket
 Route::prefix('basket')->group(function () {
     Route::get('/', [BasketController::class, 'index']);
     Route::post('/add', [BasketController::class, 'add']);
@@ -19,14 +20,14 @@ Route::prefix('basket')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-
-    //Auth
+    // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    //Product
+    // Product
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);
 
-    //Checkout
+    // Orders / Checkout
     Route::post('/checkout', CheckoutController::class);
+    Route::get('/orders', OrderController::class);
 });
