@@ -1,6 +1,6 @@
 # 🛒 Laravel E-Commerce Backend – Code Challenge
 
-This is a simple e-commerce backend API built with Laravel 11, designed to demonstrate clean architecture, modular services, and handling both authenticated and guest users through basket-to-order flow.
+This is a simple e-commerce backend API built with Laravel 12, designed to demonstrate clean architecture, modular services, and handling both authenticated and guest users through basket-to-order flow.
 
 ---
 
